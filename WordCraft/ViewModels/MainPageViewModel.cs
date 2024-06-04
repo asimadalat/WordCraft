@@ -1,11 +1,13 @@
-﻿using _6002CEM_Maui_App.ViewModels;
+﻿using WordCraft.ViewModels;
 using System;
 using System.Windows;
 using System.IO;
 using System.Linq;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Net.Http;
+using Newtonsoft.Json;
+using WordCraft.Models;
 
 namespace WordCraft.ViewModels
 {
@@ -24,9 +26,24 @@ namespace WordCraft.ViewModels
             }
         }
 
+        private string _wordScoreLbl = "Score: ";
+        public string WordScoreLbl
+        {
+            get => _wordScoreLbl;
+            set
+            {
+                if (_wordScoreLbl != value)
+                {
+                    _wordScoreLbl = value;
+                    OnPropertyChanged(nameof(WordScoreLbl));
+                }
+            }
+        }
+        public List<PreviousWordModel> PreviousWords { get; set; }
+
         public MainPageViewModel()
         {
-
+            GetApiData();
         }
 
         private List<string> GetSpecialWords()
@@ -82,7 +99,7 @@ namespace WordCraft.ViewModels
                         scoreCounter *= 2;
                     }
 
-                    MessageBox.Show($"Your score for {_currentWord} is {scoreCounter}.", "Score");
+                    WordScoreLbl = $"Score: {scoreCounter}";
                 } catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
@@ -92,6 +109,19 @@ namespace WordCraft.ViewModels
             }
             
             return Task.CompletedTask;
+        }
+
+        private void GetApiData()
+        {
+            using (var client = new HttpClient())
+            {
+                var uri_endpoint = new Uri("https://testapi.sail-dev.com/api/data/getworddata");
+                var result = client.GetAsync(uri_endpoint).Result;
+                var json = result.Content.ReadAsStringAsync().Result;
+
+                PreviousWords = JsonConvert.DeserializeObject<List<PreviousWordModel>>(json);
+
+            }
         }
     }
 }

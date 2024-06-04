@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace _6002CEM_Maui_App.ViewModels;
+namespace WordCraft.ViewModels;
 
 // Base view model, other vms to inherit OnPropertyChanged
 public class PageViewModel : INotifyPropertyChanged
