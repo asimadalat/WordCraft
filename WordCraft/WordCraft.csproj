@@ -13,4 +13,21 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Fonts\*.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Scrabbles.ttf" />
+    <None Remove="Resources\Images\submitbuttonpng.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Heyam.ttf" />
+    <Resource Include="Resources\Fonts\Scrabbles.ttf" />
+    <Resource Include="Resources\Images\historybuttonwhite.png" />
+    <Resource Include="Resources\Images\playbuttonwhite.png" />
+    <Resource Include="Resources\Images\submitbuttonpng.png" />
+  </ItemGroup>
+
 </Project>
