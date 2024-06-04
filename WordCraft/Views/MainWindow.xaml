@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox Name="txtWord" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
-        <Button Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="220,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox Name="wordSearch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200" Text="{Binding CurrentWord}"/>
+        <Button Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="220,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CalculateScoreCommand}"/>
         <Label Name="lblScore" Content="Score: " HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
         <DataGrid Name="dataGrid" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="200" Width="480"/>
     </Grid>
