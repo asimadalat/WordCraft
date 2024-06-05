@@ -1,5 +1,6 @@
 ﻿using WordCraft.ViewModels;
 using WordCraft.Views;
+using WordCraft.Models;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System;
@@ -10,14 +11,14 @@ using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using System.Net.Http;
 using Newtonsoft.Json;
-using WordCraft.Models;
+using WordCraft.Interfaces;
+using WordCraft.Services;
 
 namespace WordCraft.ViewModels
 {
     public partial class MainPageViewModel : PageViewModel
     {
-        private static readonly int[] 
-            letterScores = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
+        private readonly IScoreService _scoreService;
 
         private string _currentWord;
         public string CurrentWord { get => _currentWord;
@@ -44,9 +45,11 @@ namespace WordCraft.ViewModels
         }
         public List<PreviousWordModel> PreviousWords { get; set; }
 
-        public MainPageViewModel()
+        private List<LetterScoreModel> _letterScores;
+
+        public MainPageViewModel(IScoreService scoreService)
         {
-            GetApiData();
+            _scoreService = scoreService;
         }
 
         private List<string> GetSpecialWords()
@@ -76,41 +79,10 @@ namespace WordCraft.ViewModels
         }
 
         [RelayCommand]
-        public Task CalculateScore()
+        public Task Submit()
         {
-            if (_currentWord == null || _currentWord == "") {
-                MessageBox.Show("Please enter a word.", "Cannot submit blank");
-            } else if (_currentWord.Contains(" ")) {
-                MessageBox.Show("Please enter only a single word.", "Cannot submit multiple words");
-            } else if (!_currentWord.All(Char.IsLetter)) {
-                MessageBox.Show("Please enter a word consisting of letters of the alphabet.", "No numeric or special characters");
-            } else
-            {
-                try
-                {
-
-                    int scoreCounter = 0;
-                    foreach (char c in _currentWord)
-                    {
-                        scoreCounter += char.ToUpper(c) - 'A' + 1;
-                    }
-
-                    List<string> specials = GetSpecialWords();
-                    if (specials != null && specials.Contains(_currentWord, StringComparer.OrdinalIgnoreCase))
-                    {
-                        Debug.WriteLine("Special word entered.");
-                        scoreCounter *= 2;
-                    }
-
-                    WordScoreLbl = $"Score: {scoreCounter}";
-                } catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                
-                Debug.WriteLine(_currentWord);
-            }
-            
+            List<string> specialWords = GetSpecialWords();
+            WordScoreLbl = _scoreService.GetWordScore(_currentWord, specialWords);
             return Task.CompletedTask;
         }
 
@@ -120,19 +92,6 @@ namespace WordCraft.ViewModels
             HistoryWindow historyWindow = new HistoryWindow();
             historyWindow.Show();
             return Task.CompletedTask;
-        }
-
-        private void GetApiData()
-        {
-            using (var client = new HttpClient())
-            {
-                var uri_endpoint = new Uri("https://testapi.sail-dev.com/api/data/getworddata");
-                var result = client.GetAsync(uri_endpoint).Result;
-                var json = result.Content.ReadAsStringAsync().Result;
-
-                PreviousWords = JsonConvert.DeserializeObject<List<PreviousWordModel>>(json);
-
-            }
         }
     }
 }

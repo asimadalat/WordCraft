@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WordCraft.Interfaces;
+using WordCraft.Services;
 
 namespace WordCraft
 {
@@ -20,7 +22,9 @@ namespace WordCraft
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainPageViewModel();
+
+            IScoreService scoreService = new ScoreService();
+            DataContext = new MainPageViewModel(scoreService);
         }
     }
 }
