@@ -93,7 +93,8 @@
                 <Button
                     Margin="0,25"
                     Background="Transparent"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    Command="{Binding GoToHistoryCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="30"
@@ -156,12 +157,14 @@
 
         <Label
             Grid.Row="2"
-            Grid.Column="2"
-            Margin="15,60,0,0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="27,10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="{Binding WordScoreLbl}"
-            FontSize="30" />
+            FontSize="50" 
+            FontFamily="pack://application:,,,/Resources/Fonts/#Sf Digital Readout"/>
 
     </Grid>
 </Window>

@@ -1,4 +1,7 @@
 ﻿using WordCraft.ViewModels;
+using WordCraft.Views;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using System;
 using System.Windows;
 using System.IO;
@@ -108,6 +111,14 @@ namespace WordCraft.ViewModels
                 Debug.WriteLine(_currentWord);
             }
             
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        public Task GoToHistory()
+        {
+            HistoryWindow historyWindow = new HistoryWindow();
+            historyWindow.Show();
             return Task.CompletedTask;
         }
 
