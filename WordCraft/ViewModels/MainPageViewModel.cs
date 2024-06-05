@@ -45,8 +45,6 @@ namespace WordCraft.ViewModels
         }
         public List<PreviousWordModel> PreviousWords { get; set; }
 
-        private List<LetterScoreModel> _letterScores;
-
         public MainPageViewModel(IScoreService scoreService)
         {
             _scoreService = scoreService;
@@ -91,6 +89,14 @@ namespace WordCraft.ViewModels
         {
             HistoryWindow historyWindow = new HistoryWindow();
             historyWindow.Show();
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        public Task GoToScoring()
+        {
+            ScoringWindow scoringWindow = new ScoringWindow();
+            scoringWindow.Show();
             return Task.CompletedTask;
         }
     }

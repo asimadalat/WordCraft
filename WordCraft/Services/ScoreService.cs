@@ -22,7 +22,6 @@ namespace WordCraft.Services
         {
             var json = File.ReadAllText(_filePath);
             _letterScores = JsonSerializer.Deserialize<List<LetterScoreModel>>(json);
-            Debug.WriteLine(_letterScores);
             return _letterScores;
         }
 

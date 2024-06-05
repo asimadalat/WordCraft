@@ -1,11 +1,11 @@
 ﻿<Window
-    x:Class="WordCraft.Views.HistoryWindow"
+    x:Class="WordCraft.Views.ScoringWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WordCraft.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Window1"
+    Title="ScoringWindow"
     Width="800"
     Height="450"
     mc:Ignorable="d">
@@ -32,26 +32,45 @@
             Margin="5,5,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Content="Previous words"
+            Content="Scoring"
             FontFamily="pack://application:,,,/Resources/Fonts/#Scrabbles"
-            FontSize="90"
-            Foreground="#000000" />
+            FontSize="90" />
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="25,15,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Each letter in the word is given a score.&#x0a;The score of each letter is shown on the&#x0a;right. These scores are added to obtain&#x0a;the total score."
+            FontSize="20"/>
+
+        <Label
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="25,15,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Certain special words are worth double!&#x0a;Can you find them all?"
+            FontSize="20"/>
 
         <Border
             Grid.Row="1"
             Grid.RowSpan="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
             Margin="15,0,25,12"
             Background="#eeeeee"
             BorderThickness="0"
             CornerRadius="20">
             <DataGrid
-                GridLinesVisibility="Vertical"
-                ColumnWidth="240"
-                FontSize="20"
-                ItemsSource="{Binding PreviousWords}"
-                IsReadOnly="True"/>
+                ColumnWidth="170"
+                FontSize="30"
+                GridLinesVisibility="Horizontal"
+                IsReadOnly="True"
+                ItemsSource="{Binding LetterScoreList}" />
         </Border>
 
     </Grid>
