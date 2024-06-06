@@ -18,8 +18,10 @@ namespace WordCraft.ViewModels
 {
     public partial class MainPageViewModel : PageViewModel
     {
+        // Define score service to use for scoring.
         private readonly IScoreService _scoreService;
 
+        // Define currentword to hold the word currently in text box.
         private string _currentWord;
         public string CurrentWord { get => _currentWord;
             set {
@@ -30,6 +32,7 @@ namespace WordCraft.ViewModels
             }
         }
 
+        // Define currentword to hold the score message, including the final score.
         private string _wordScoreLbl = "Score: ";
         public string WordScoreLbl
         {
@@ -43,21 +46,22 @@ namespace WordCraft.ViewModels
                 }
             }
         }
-        public List<PreviousWordModel> PreviousWords { get; set; }
 
         public MainPageViewModel(IScoreService scoreService)
         {
             _scoreService = scoreService;
         }
 
+        // Convert first column of CSV file excluding header row to list of string type.
         private List<string> GetSpecialWords()
         {
             List<string> words = new List<string>();
-            try
+            try 
             {
+                // Define file path.
                 using (StreamReader reader = new StreamReader("../../../Resources/Words50.csv"))
                 {
-                    if (!reader.EndOfStream)
+                    if (!reader.EndOfStream) // Exclude the header row.
                     {
                         reader.ReadLine(); 
                     }
@@ -65,8 +69,7 @@ namespace WordCraft.ViewModels
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        //MessageBox.Show((line.Split(','))[0]);
-                        words.Add((line.Split(','))[0]);
+                        words.Add((line.Split(','))[0]); // Split the row by ',' character, add first element to list.
                     }
                 }
             } catch (Exception e)
@@ -76,6 +79,7 @@ namespace WordCraft.ViewModels
             return words;
         }
 
+        // Modify WordScoreLbl to include score for _currentWord using _scoreService.
         [RelayCommand]
         public Task Submit()
         {
@@ -84,6 +88,7 @@ namespace WordCraft.ViewModels
             return Task.CompletedTask;
         }
 
+        // Initalise and display history window.
         [RelayCommand]
         public Task GoToHistory()
         {
@@ -92,6 +97,7 @@ namespace WordCraft.ViewModels
             return Task.CompletedTask;
         }
 
+        // Initalise and display scoring window.
         [RelayCommand]
         public Task GoToScoring()
         {

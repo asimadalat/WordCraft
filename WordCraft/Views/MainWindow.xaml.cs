@@ -14,15 +14,13 @@ using WordCraft.Services;
 
 namespace WordCraft
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
 
+            // Set data binding context to MainPageViewModel, passing scoreService.
             IScoreService scoreService = new ScoreService();
             DataContext = new MainPageViewModel(scoreService);
         }

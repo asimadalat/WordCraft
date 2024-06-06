@@ -15,14 +15,13 @@ using WordCraft.ViewModels;
 
 namespace WordCraft.Views
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class HistoryWindow : Window
     {
         public HistoryWindow()
         {
             InitializeComponent();
+
+            // Set data binding context to HistoryPageViewModel.
             DataContext = new HistoryPageViewModel();
         }
     }

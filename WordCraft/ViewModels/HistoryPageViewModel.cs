@@ -11,22 +11,23 @@ namespace WordCraft.ViewModels
 {
     public partial class HistoryPageViewModel : PageViewModel
     {
+        // Define list of PreviousWordModel objects.
         public List<PreviousWordModel> PreviousWords { get; set; }
 
         public HistoryPageViewModel()
         {
-            GetApiData();
+            GetApiData(); // Fetch API data on each initalisation.
         }
 
         private void GetApiData()
         {
             using (var client = new HttpClient())
             {
-                var uri_endpoint = new Uri("https://testapi.sail-dev.com/api/data/getworddata");
-                var result = client.GetAsync(uri_endpoint).Result;
-                var json = result.Content.ReadAsStringAsync().Result;
+                var uri_endpoint = new Uri("https://testapi.sail-dev.com/api/data/getworddata"); // Define endpoint.
+                var result = client.GetAsync(uri_endpoint).Result; // Asynchronous GET operation on endpoint.
+                var json = result.Content.ReadAsStringAsync().Result; // Content.ReadAsStringAsync.Result on result obtains data in JSON format.
 
-                PreviousWords = JsonConvert.DeserializeObject<List<PreviousWordModel>>(json);
+                PreviousWords = JsonConvert.DeserializeObject<List<PreviousWordModel>>(json); // Convert JSON data to list of type PreviousWordModel.
 
             }
         }

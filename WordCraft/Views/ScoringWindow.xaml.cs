@@ -17,14 +17,14 @@ using WordCraft.ViewModels;
 
 namespace WordCraft.Views
 {
-    /// <summary>
-    /// Interaction logic for ScoringWindow.xaml
-    /// </summary>
+
     public partial class ScoringWindow : Window
     {
         public ScoringWindow()
         {
             InitializeComponent();
+
+            // Set data binding context to ScoringPageViewModel, passing scoreService.
             IScoreService scoreService = new ScoreService();
             DataContext = new ScoringPageViewModel(scoreService);
 
